@@ -1,0 +1,27 @@
+class Solution {
+    public String replaceSpace(String s) {
+        int size = 0;
+        int n = s.length();
+        //构造char，使用charAt(i)将每位读取
+        char[] arr = new char[n*3];
+        char c;
+        for(int i = 0; i < n; i++) {
+            c = s.charAt(i);
+            if(c == ' ') {
+                //使用'' 而不是""
+                arr[size] = '%';
+                size++;
+                arr[size] = '2';
+                size++;
+                arr[size] = '0';
+                size++;
+            } else {
+                arr[size] = c;
+                size++;
+            }
+        }
+        //构造string，从arr中将字符复制
+        String res = new String(arr, 0, size);
+        return res;
+    }
+}
