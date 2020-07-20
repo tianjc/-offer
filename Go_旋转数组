@@ -1,0 +1,26 @@
+func rotate(nums []int, k int)  {
+    if k <= 0 || nums == nil {
+        return
+    }
+    if k > len(nums) {
+        k = k % len(nums)
+    }
+    //旋转前半部分
+    swap(nums[:len(nums) - k])
+    //旋转后半部分
+    swap(nums[len(nums) - k:])
+    //对整体翻转
+    swap(nums)
+}
+
+func swap(nums []int) {
+    low := 0
+    high := len(nums) - 1
+    for low < high {
+        temp := nums[low] 
+        nums[low] = nums[high]
+        nums[high] = temp
+        low++
+        high--
+    }
+}
