@@ -1,0 +1,21 @@
+class Solution {
+    public int numWays(int n) {
+        if (n == 0) return 1;
+        if (n == 1) return 1;
+        if (n == 2) return 2;
+        
+        //fn2 fn1 fn
+        //fn2+fn1 = fn
+        //求和后向右移位
+        int fn1 = 2;
+        int fn2 = 1;
+        int fn = 0;
+        
+        for (int i = 0; i <= n; i++) {
+            fn = (fn1 + fn2);
+            fn2 = fn1;
+            fn1 = fn;
+        }
+        return fn;
+    }
+}
