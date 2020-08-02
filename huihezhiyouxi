@@ -1,0 +1,21 @@
+import java.util.Scanner;
+ 
+public class No4BuffAttack {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+            int HP = scanner.nextInt();
+            int normal = scanner.nextInt();
+            int buff = scanner.nextInt();
+            if (buff<=2*normal)  //如果buff小于两倍normal，一直用normal攻击是最划算的
+                System.out.println(HP%normal==0?HP/normal:HP/normal+1);
+            else {//如果buff高，那么先用buff进行攻击
+                int left=HP%buff;  //取余，判断最后的血量用什么来攻击
+                if (left==0)  //如果血量为零，说明一直用buff来攻击就可以了
+                    System.out.println(HP/buff*2);
+                else if (left<=normal)//如果余量小于normal，说明最后一次的攻击用normal是最好的
+                    System.out.println(HP/buff*2+1);
+                else System.out.println(HP/buff*2+2);
+            }
+            return;
+    }
+}
