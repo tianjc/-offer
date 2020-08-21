@@ -1,0 +1,42 @@
+//给定一张包含N个点、N-1条边的无向连通图，节点从1到N编号，每条边的长度均为1。假设你从1号节点出发并打算遍历所有节点，那么总路程至少是多少？
+//第一行包含一个整数N，1≤N≤10^5。接下来N-1行，每行包含两个整数X和Y，表示X号节点和Y号节点之间有一条边，1≤X，Y≤N。
+
+import java.util.*;
+ 
+public class Main {
+    public static void main(String[] args){
+        Scanner scanner = new Scanner(System.in);
+        int n = scanner.nextInt();
+        ArrayList[] arr = new ArrayList[n + 1];//邻接表
+        for(int i = 1; i <arr.length ; i++){
+            arr[i]=new ArrayList<Integer>();
+        }
+        int len = 0;
+        for(int i = 0; i < n - 1; i++){
+            int x = scanner.nextInt(), y = scanner.nextInt();
+            arr[x].add(y);
+            arr[y].add(x);
+        }
+        //广度优先遍历
+        Stack<Integer> stack = new Stack<>();
+        stack.add(1);
+        int[] visited = new int[n + 1];
+        visited[1] = 1;
+        while (!stack.isEmpty()) {
+            len++;
+            Stack<Integer> stackT = new Stack<>(); //一层一层遍历搜索
+            while (!stack.isEmpty()) {
+                int now = stack.pop();
+                ArrayList<Integer> arrayList = arr[now];
+                for(Integer a : arrayList){
+                    if(visited[a] == 0){//如果a没有被访问过
+                        stackT.add(a);
+                        visited[a] = 1;
+                    }
+                }
+            }
+            stack = stackT;
+        }
+        System.out.println(2 * (n - 1) - len+1);
+    }
+}
