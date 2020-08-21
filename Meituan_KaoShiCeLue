@@ -1,0 +1,35 @@
+//小明同学在参加一场考试，考试时间2个小时。试卷上一共有n道题目，小明要在规定时间内，完成一定数量的题目。 
+//考试中不限制试题作答顺序，对于 i 第道题目，小明有三种不同的策略可以选择: 
+//(1)直接跳过这道题目，不花费时间，本题得0分。
+//(2)只做一部分题目，花费pi分钟的时间，本题可以得到ai分。  (3)做完整个题目，花费qi分钟的时间，本题可以得到bi分。 
+//小明想知道，他最多能得到多少分。
+
+//第一行输入一个n数表示题目的数量。接下来n行，每行四个数p_i，a_i，q_i，b_i。(1≤n≤100，1≤p_i≤q_i≤120，0≤a_i≤b_i≤1000)。
+
+import java.io.*;
+public class Main{
+    public static void main(String[] args) throws IOException{
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        int n=Integer.parseInt(br.readLine());
+        int[] p=new int[n+1];
+        int[] a=new int[n+1];
+        int[] q=new int[n+1];
+        int[] b=new int[n+1];
+        for(int i=1;i<=n;i++){
+            String[] line=br.readLine().split(" ");
+            p[i]=Integer.parseInt(line[0]);
+            a[i]=Integer.parseInt(line[1]);
+            q[i]=Integer.parseInt(line[2]);
+            b[i]=Integer.parseInt(line[3]);
+        }
+        int[][] dp=new int[n+1][121];
+        for(int i=1;i<=n;i++){
+            for(int j=0;j<=120;j++){
+                dp[i][j]=dp[i-1][j];
+                if(j>=p[i]) dp[i][j]=Math.max(dp[i][j],dp[i-1][j-p[i]]+a[i]);
+                if(j>=q[i]) dp[i][j]=Math.max(dp[i][j],dp[i-1][j-q[i]]+b[i]);
+            }
+        }
+        System.out.println(dp[n][120]);
+    }
+}
